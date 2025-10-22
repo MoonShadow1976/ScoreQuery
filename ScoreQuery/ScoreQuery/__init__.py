@@ -14,6 +14,7 @@ from gsuid_core.models import Event, Message
 from gsuid_core.logger import logger
 from gsuid_core.utils.image.convert import convert_img
 
+from ....WutheringWavesUID.WutheringWavesUID.utils.ascension.char import get_char_model
 from ....WutheringWavesUID.WutheringWavesUID.utils.calculate import (
     calc_phantom_entry,
     calc_phantom_score,
@@ -194,6 +195,7 @@ async def get_ocr_text(img):
 
 
 async def draw_ph(char_name, props, cost, calc_map):
+    char_id = char_name_to_char_id(char_name)
     _score, _level = calc_phantom_score(
                     char_name, props, cost, calc_map
                 )
@@ -229,7 +231,13 @@ async def draw_ph(char_name, props, cost, calc_map):
     sh_temp = Image.new("RGBA", (404, 402), (25, 35, 55, 10))
     oset = 55
     for index, _prop in enumerate(props):
-        _score, final_score = calc_phantom_entry(index, _prop, cost, calc_map)
+        
+        char_model = get_char_model(char_id)
+        char_attr = ""
+        if char_model:
+            char_attr = char_model.get_attribute_name()
+            
+        _score, final_score = calc_phantom_entry(index, _prop, cost, calc_map, char_attr)
         logger.info(f"{char_name} [属性]: {_prop.attributeName} {_prop.attributeValue} [评分]: {final_score}")
         
         prop_img = await get_attribute_prop(_prop.attributeName)
@@ -288,6 +296,7 @@ from .config import seconfig
 
 sv_phantom_scorer = SV("鸣潮声骸查分")
 PREFIX = get_plugin_available_prefix("ScoreQuery")
+
 
 @sv_phantom_scorer.on_command(('查分'))
 async def score_phantom_handler(bot: Bot, ev: Event):
@@ -390,6 +399,8 @@ async def score_phantom_handler(bot: Bot, ev: Event):
                                 ph_img = await draw_ph(char_name, props, cost, calc_temp)
                                 ph_img = await convert_img(ph_img)
                                 await bot.send(ph_img, at_sender=True)
+                    else:
+                        await bot.send(f"词条识别失败惹\n", at_sender=True)
 
     except httpx.RequestError as e:
         logger.error(f"下载图片失败: {e}")
@@ -426,7 +437,7 @@ async def score_phantom_handler(bot: Bot, ev: Event):
                     result = await get_ocr_text(img)
                     for res in result:
                         logger.debug(f"识别内容: {res.json['res']['rec_texts']}")
-                        await bot.send(res.json['res']['rec_texts'], at_sender=True)
+                        await bot.send(res.json['res']['rec_texts'], at_sender=False)
 
     except httpx.RequestError as e:
         logger.error(f"下载图片失败: {e}")
