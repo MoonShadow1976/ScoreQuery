@@ -197,7 +197,7 @@ async def get_ocr_text(img):
 async def draw_ph(char_name, props, cost, calc_map):
     char_id = char_name_to_char_id(char_name)
     _score, _level = calc_phantom_score(
-                    char_name, props, cost, calc_map, ''
+                    char_name, props, cost, calc_map
                 )
     _level = _level.upper()
     logger.info(f"{char_name} [声骸分数]: {_score} [声骸评分等级]: {_level}")
