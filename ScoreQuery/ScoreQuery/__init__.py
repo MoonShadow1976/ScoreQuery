@@ -123,7 +123,7 @@ async def get_image(ev: Event):
 
     return res
 
-valid_keys = {
+valid_keys = [
     "小生命",
     "生命",
     "小攻击",
@@ -144,8 +144,8 @@ valid_keys = {
     "湮灭伤害加成",
     "热熔伤害加成",
     "治疗效果加成",
-}
-valid_values = {
+]
+valid_values = [
     "320", "360", "390", "430", "470", "510", "540", "580",
     "30", "40", "50", "60",
     "70",
@@ -154,7 +154,7 @@ valid_values = {
     "6.8%", "7.6%", "8.4%", "9.2%", "10.0%", "10.8%", "11.6%", "12.4%",
     "6.3%", "6.9%", "7.5%", "8.1%", "8.7%", "9.3%", "9.9%", "10.5%",
     "12.6%","13.8%","15.0%","16.2%","17.4%","18.6%","19.8%","21.0%",
-}
+]
 
 def extract_vaild_info(info):
     keys = []
@@ -197,7 +197,7 @@ async def get_ocr_text(img):
 async def draw_ph(char_name, props, cost, calc_map):
     char_id = char_name_to_char_id(char_name)
     _score, _level = calc_phantom_score(
-                    char_name, props, cost, calc_map
+                    char_name, props, cost, calc_map, ''
                 )
     _level = _level.upper()
     logger.info(f"{char_name} [声骸分数]: {_score} [声骸评分等级]: {_level}")
