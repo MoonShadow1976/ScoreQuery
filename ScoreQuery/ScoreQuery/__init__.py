@@ -14,8 +14,8 @@ from gsuid_core.models import Event, Message
 from gsuid_core.logger import logger
 from gsuid_core.utils.image.convert import convert_img
 
-from ....WutheringWavesUID.WutheringWavesUID.utils.ascension.char import get_char_model
-from ....WutheringWavesUID.WutheringWavesUID.utils.calculate import (
+from ....XutheringWavesUID.XutheringWavesUID.utils.ascension.char import get_char_model
+from ....XutheringWavesUID.XutheringWavesUID.utils.calculate import (
     calc_phantom_entry,
     calc_phantom_score,
     get_calc_map,
@@ -23,14 +23,14 @@ from ....WutheringWavesUID.WutheringWavesUID.utils.calculate import (
     get_total_score_bg,
     get_valid_color,
 )
-from ....WutheringWavesUID.WutheringWavesUID.utils.api.model import (
+from ....XutheringWavesUID.XutheringWavesUID.utils.api.model import (
     AccountBaseInfo,
     OnlineRoleList,
     RoleDetailData,
     WeaponData,
     Props,
 )
-from ....WutheringWavesUID.WutheringWavesUID.utils.image import (
+from ....XutheringWavesUID.XutheringWavesUID.utils.image import (
     GOLD,
     GREY,
     SPECIAL_GOLD,
@@ -53,7 +53,7 @@ from ....WutheringWavesUID.WutheringWavesUID.utils.image import (
     get_waves_bg,
     get_weapon_type,
 )
-from ....WutheringWavesUID.WutheringWavesUID.utils.fonts.waves_fonts import (
+from ....XutheringWavesUID.XutheringWavesUID.utils.fonts.waves_fonts import (
     waves_font_16,
     waves_font_18,
     waves_font_20,
@@ -67,7 +67,7 @@ from ....WutheringWavesUID.WutheringWavesUID.utils.fonts.waves_fonts import (
     waves_font_42,
     waves_font_50,
 )
-from ....WutheringWavesUID.WutheringWavesUID.utils.name_convert import alias_to_char_name, char_name_to_char_id
+from ....XutheringWavesUID.XutheringWavesUID.utils.name_convert import alias_to_char_name, char_name_to_char_id
 
 async def get_image(ev: Event):
     res = []
